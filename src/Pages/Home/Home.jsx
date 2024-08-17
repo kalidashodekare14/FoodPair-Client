@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import { Rating } from '@smastrom/react-rating'
@@ -21,6 +21,7 @@ const Home = () => {
     const [isCategoryName, setIsCategoryName] = useState("")
 
     console.log(isCategoryName)
+
 
     // const pages = []
     // for(let i = 0; i< numberOfPages; i++){
@@ -72,6 +73,27 @@ const Home = () => {
         }
     }
 
+
+    const handleBrandName = (e) => {
+        setIsBrandName(e.target.value)
+    }
+
+    const handleCategoryName = (e) => {
+        setIsCategoryName(e.target.value)
+    }
+
+    useEffect(() => {
+        const brandNameFiltering = product.filter(p => p.BrandName.toLowerCase().includes(isBrandName.toLowerCase()))
+        setFilteredProduct(brandNameFiltering)
+
+
+    }, [isBrandName, product])
+
+    useEffect(() => {
+        const categoryNameFiltering = product.filter(p => p.Category.toLowerCase().includes(isCategoryName.toLowerCase()))
+        setFilteredProduct(categoryNameFiltering)
+    }, [isCategoryName, product])
+
     return (
         <div>
             <div className='banner h-[40vh] bg-no-repeat bg-center bg-cover mb-10'>
@@ -85,44 +107,37 @@ const Home = () => {
                         <input onClick={handleSearch} className='btn' type="submit" value="Search" />
                     </div>
                     <div className='space-x-5 my-5'>
-                        <details className="dropdown">
-                            <summary className="btn m-1 w-40">Brand Name</summary>
-                            <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
-                                <li><a onClick={() => setIsCategoryName("Italian Delights")}>Italian Delights</a></li>
-                                <li><a onClick={() => setIsCategoryName("Breakfast")}>Breakfast</a></li>
-                                <li><a onClick={() => setIsCategoryName("Breakfast Bar")}>Breakfast Bar</a></li>
-                                <li><a onClick={() => setIsCategoryName("Wrap")}>Wrap</a></li>
-                                <li><a onClick={() => setIsCategoryName("Asian Fusion")}>Asian Fusion</a></li>
-                                <li><a onClick={() => setIsCategoryName("Breakfast Bar")}>Breakfast Bar</a></li>
-                                <li><a onClick={() => setIsCategoryName("Cocktail Classics")}>Cocktail Classics</a></li>
-                                <li><a onClick={() => setIsCategoryName("Sweet Treats")}>Sweet Treats</a></li>
-                                <li><a onClick={() => setIsCategoryName("Seafood Delights")}>Seafood Delights</a></li>
-                                <li><a onClick={() => setIsCategoryName("Wrap Works")}>Wrap Works</a></li>
-                                <li><a onClick={() => setIsCategoryName("Burger")}>Burger</a></li>
-                                <li><a onClick={() => setIsCategoryName("Fresh Greens")}>Fresh Greens</a></li>
-                                <li><a onClick={() => setIsCategoryName("Sandwich Central")}>Sandwich Central</a></li>
-                                <li><a onClick={() => setIsCategoryName("Burger Haven")}>Burger Haven</a></li>
-                                <li><a onClick={() => setIsCategoryName("Grill Masters")}>Grill Masters</a></li>
-
-                            </ul>
-                        </details>
-                        <details className="dropdown">
-                            <summary className="btn m-1 w-40">Category Name</summary>
-                            <ul onChange={(e) => setIsBrandName(e.target.value)} className="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
-                                <li><a onClick={() => setIsBrandName("Salad")}>Salad</a></li>
-                                <li><a onClick={() => setIsBrandName("Dessert")}>Dessert</a></li>
-                                <li><a onClick={() => setIsBrandName("Pizza")}>Pizza</a></li>
-                                <li><a onClick={() => setIsBrandName("Sandwich")}>Sandwich</a></li>
-                                <li><a onClick={() => setIsBrandName("Burger")}>Burger</a></li>
-                                <li><a onClick={() => setIsBrandName("Appetizer")}>Appetizer</a></li>
-                                <li><a onClick={() => setIsBrandName("Main Course")}>Main Course</a></li>
-                                <li><a onClick={() => setIsBrandName("Soup")}>Soup</a></li>
-                                <li><a onClick={() => setIsBrandName("Beverage")}>Beverage</a></li>
-                                <li><a onClick={() => setIsBrandName("Pasta")}>Pasta</a></li>
-                                <li><a onClick={() => setIsBrandName("Breakfast")}>Breakfast</a></li>
-                                <li><a onClick={() => setIsBrandName("Wrap")}>Wrap</a></li>
-                            </ul>
-                        </details>
+                        <select onChange={handleBrandName} className='w-32 h-12'>
+                            <option className='disabled' value="">Brand Name</option>
+                            <option value="Italian Delights">Italian Delights</option>
+                            <option value="Breakfast">Breakfast</option>
+                            <option value="Breakfast Bar">Breakfast Bar</option>
+                            <option value="Wrap">Wrap</option>
+                            <option value="Asian Fusion">Asian Fusion</option>
+                            <option value="Sweet Treats">Sweet Treats</option>
+                            <option value="Seafood Delights">Seafood Delights</option>
+                            <option value="Wrap Works">Wrap Works</option>
+                            <option value="Burger">Burger</option>
+                            <option value="Fresh Greens">Fresh Greens</option>
+                            <option value="Sandwich Central">Sandwich Central</option>
+                            <option value="Burger Haven">Burger Haven</option>
+                            <option value="Grill Masters">Grill Masters</option>
+                        </select>
+                        <select onChange={handleCategoryName}>
+                            <option value="">Category Name</option>
+                            <option value="Salad">Salad</option>
+                            <option value="Dessert">Dessert</option>
+                            <option value="Pizza">Pizza</option>
+                            <option value="Sandwich">Sandwich</option>
+                            <option value="Burger">Burger</option>
+                            <option value="Appetizer">Appetizer</option>
+                            <option value="Main Course">Main Course</option>
+                            <option value="Soup">Soup</option>
+                            <option value="Beverage">Beverage</option>
+                            <option value="Pasta">Pasta</option>
+                            <option value="Breakfast">Breakfast</option>
+                            <option value="Wrap">Wrap</option>
+                        </select>
                         <details className="dropdown">
                             <summary className="btn m-1 w-40">Sort By</summary>
                             <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
