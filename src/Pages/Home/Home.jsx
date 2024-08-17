@@ -95,10 +95,10 @@ const Home = () => {
     }, [isCategoryName, product])
 
     return (
-        <div>
-            <div className='banner h-[40vh] bg-no-repeat bg-center bg-cover mb-10'>
-                <div className='h-[40vh] flex flex-col justify-center items-center'>
-                    <div className='space-x-3'>
+        <div className='flex flex-col lg:flex-row'>
+            <div className='w-96 banner bg-no-repeat bg-center bg-cover '>
+                <div className='h-[40vh] flex flex-col justify-center items-center my-5'>
+                    <div className='space-x-3 flex items-center lg:mt-32 mx-5'>
                         <input
                             className='input input-bordered' type="text"
                             placeholder='Search'
@@ -106,8 +106,8 @@ const Home = () => {
                         />
                         <input onClick={handleSearch} className='btn' type="submit" value="Search" />
                     </div>
-                    <div className='space-x-5 my-5'>
-                        <select onChange={handleBrandName} className='w-40 h-12 rounded-md'>
+                    <div className='flex flex-col lg:mt-10 mt-5 w-full space-y-5 px-10 lg:px-5'>
+                        <select onChange={handleBrandName} className='w-full h-12 rounded-md'>
                             <option className='disabled' value="">Brand Name</option>
                             <option value="Italian Delights">Italian Delights</option>
                             <option value="Breakfast">Breakfast</option>
@@ -123,7 +123,7 @@ const Home = () => {
                             <option value="Burger Haven">Burger Haven</option>
                             <option value="Grill Masters">Grill Masters</option>
                         </select>
-                        <select onChange={handleCategoryName} className='w-40 h-12 rounded-md'>
+                        <select onChange={handleCategoryName} className='w-full h-12 rounded-md'>
                             <option value="">Category Name</option>
                             <option value="Salad">Salad</option>
                             <option value="Dessert">Dessert</option>
@@ -139,8 +139,8 @@ const Home = () => {
                             <option value="Wrap">Wrap</option>
                         </select>
                         <details className="dropdown">
-                            <summary className="btn m-1 w-40">Sort By</summary>
-                            <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-40 p-2 shadow">
+                            <summary className="btn w-full">Sort By</summary>
+                            <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-full p-2 shadow">
                                 <li onClick={handleShortedLow}><a>Low to High</a></li>
                                 <li onClick={handleShortedHigh}><a>High to Low</a></li>
                                 <li onClick={handleShortedDateAndTime}><a>Newest first</a></li>
@@ -149,53 +149,55 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <div className='mx-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3'>
-                {
-                    filteredProduct.map(foods => <div>
-                        <div className="card card-compact bg-base-100 shadow-xl">
-                            <div className='relative'>
-                                <figure>
-                                    <img className='w-full h-[40vh]' src={foods.ProductImage} alt="" />
-                                </figure>
-                                <span className='absolute top-0 right-0 p-3 font-bold text-white bg-black'>{foods.Price}</span>
-                            </div>
-                            <div className="card-body">
-                                <div className='flex justify-between items-center'>
-                                    <h2 className="card-title">{foods.ProductName}</h2>
-                                    <h2 className='text-xl'>{foods.Category}</h2>
+            <div>
+                <div className='mx-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3'>
+                    {
+                        filteredProduct.map(foods => <div>
+                            <div className="card card-compact bg-base-100 shadow-xl">
+                                <div className='relative'>
+                                    <figure>
+                                        <img className='w-full h-[40vh]' src={foods.ProductImage} alt="" />
+                                    </figure>
+                                    <span className='absolute top-0 right-0 p-3 font-bold text-white bg-black'>{foods.Price}</span>
                                 </div>
-                                <p>{foods.Description}</p>
-                                <Rating
-                                    style={{ maxWidth: 180 }}
-                                    value={foods.Ratings}
-                                    readOnly
-                                />
-                                <div className="flex justify-between items-center">
-                                    <h1>{foods.BrandName}</h1>
-                                    <h1>{foods.ProductCreationDateTime}</h1>
+                                <div className="card-body">
+                                    <div className='flex justify-between items-center'>
+                                        <h2 className="card-title">{foods.ProductName}</h2>
+                                        <h2 className='text-xl'>{foods.Category}</h2>
+                                    </div>
+                                    <p>{foods.Description}</p>
+                                    <Rating
+                                        style={{ maxWidth: 180 }}
+                                        value={foods.Ratings}
+                                        readOnly
+                                    />
+                                    <div className="flex justify-between items-center">
+                                        <h1>{foods.BrandName}</h1>
+                                        <h1>{foods.ProductCreationDateTime}</h1>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>)
-                }
-            </div>
-            <div className='flex justify-center my-10 '>
-                <button
-                    onClick={handlePrevPage}
-                    className='btn'>
-                    Prev
-                </button>
-                {
-                    pages.map(page => <button
-                        onClick={() => setCurrentPage(page)}
-                        className={`btn ${currentPage === page && 'bg-yellow-300'}`}>{page}</button>)
-                }
-                <button
-                    onClick={handleNextPage}
-                    className='btn'
-                >
-                    Next
-                </button>
+                        </div>)
+                    }
+                </div>
+                <div className='flex justify-center my-10 '>
+                    <button
+                        onClick={handlePrevPage}
+                        className='btn'>
+                        Prev
+                    </button>
+                    {
+                        pages.map(page => <button
+                            onClick={() => setCurrentPage(page)}
+                            className={`btn ${currentPage === page && 'bg-yellow-300'}`}>{page}</button>)
+                    }
+                    <button
+                        onClick={handleNextPage}
+                        className='btn'
+                    >
+                        Next
+                    </button>
+                </div>
             </div>
         </div>
     );
