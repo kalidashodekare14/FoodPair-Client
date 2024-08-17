@@ -12,7 +12,7 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>,
-                loader: () => fetch('http://localhost:5000/productCount')
+                loader: () => fetch('https://food-pair-server.vercel.app/productCount')
             },
             {
                 path: '/login',
