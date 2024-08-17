@@ -107,7 +107,7 @@ const Home = () => {
                         <input onClick={handleSearch} className='btn' type="submit" value="Search" />
                     </div>
                     <div className='space-x-5 my-5'>
-                        <select onChange={handleBrandName} className='w-32 h-12'>
+                        <select onChange={handleBrandName} className='w-40 h-12 rounded-md'>
                             <option className='disabled' value="">Brand Name</option>
                             <option value="Italian Delights">Italian Delights</option>
                             <option value="Breakfast">Breakfast</option>
@@ -123,7 +123,7 @@ const Home = () => {
                             <option value="Burger Haven">Burger Haven</option>
                             <option value="Grill Masters">Grill Masters</option>
                         </select>
-                        <select onChange={handleCategoryName}>
+                        <select onChange={handleCategoryName} className='w-40 h-12 rounded-md'>
                             <option value="">Category Name</option>
                             <option value="Salad">Salad</option>
                             <option value="Dessert">Dessert</option>
