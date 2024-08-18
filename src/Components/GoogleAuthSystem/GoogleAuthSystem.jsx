@@ -1,17 +1,19 @@
 import React from 'react';
 import google from '../../assets/google.png'
 import useAuth from '../../Hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const GoogleAuthSystem = () => {
 
 
     const { googleLoginSystem } = useAuth()
-
+    const navigate = useNavigate()
 
     const handleGoogleAuth = () => {
         googleLoginSystem()
             .then(res => {
                 console.log(res.user)
+                navigate('/')
             })
             .catch(error => {
                 console.log(error.message)

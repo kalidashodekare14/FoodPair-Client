@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import GoogleAuthSystem from '../../Components/GoogleAuthSystem/GoogleAuthSystem';
 
@@ -8,6 +8,7 @@ const Register = () => {
 
 
     const { registerSystem } = useAuth()
+    const navigate = useNavigate()
 
     const {
         register,
@@ -20,6 +21,7 @@ const Register = () => {
         registerSystem(data.email, data.password)
             .then(res => {
                 console.log(res.user)
+                navigate('/')
             })
             .catch(error => {
                 console.log(error.message)
@@ -30,7 +32,7 @@ const Register = () => {
         <div className="hero bg-base-200 min-h-screen">
             <div className="hero-content flex-col">
                 <div className="card bg-base-100 w-96 shrink-0 shadow-2xl">
-                <h1 className='text-4xl text-center mt-5'>Sign Up</h1>
+                    <h1 className='text-4xl text-center mt-5'>Sign Up</h1>
                     <form onSubmit={handleSubmit(onSubmit)} className="p-5">
                         <div className="form-control">
                             <label className="label">
@@ -57,7 +59,7 @@ const Register = () => {
                     </form>
                     <div className='px-8 pb-5 space-y-3'>
                         <div>
-                           <GoogleAuthSystem></GoogleAuthSystem>
+                            <GoogleAuthSystem></GoogleAuthSystem>
                         </div>
                         <div>
                             <Link to="/login" className='hover:decoration-clone'>

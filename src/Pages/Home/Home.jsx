@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import { Rating } from '@smastrom/react-rating'
-
 import '@smastrom/react-rating/style.css'
 import './Home.css'
 import { useLoaderData } from 'react-router-dom';
-import ReactPaginate from 'react-paginate';
+import RangeSlider from 'react-range-slider-input';
+import 'react-range-slider-input/dist/style.css';
 
 const Home = () => {
 
@@ -20,14 +20,6 @@ const Home = () => {
     const [isBrandName, setIsBrandName] = useState("")
     const [isCategoryName, setIsCategoryName] = useState("")
 
-    console.log(isCategoryName)
-
-
-    // const pages = []
-    // for(let i = 0; i< numberOfPages; i++){
-    //     pages.push(i)
-    // }
-
 
     const pages = [...Array(numberOfPages).keys()];
 
@@ -39,6 +31,8 @@ const Home = () => {
             return res.data
         }
     })
+
+    console.log(product)
 
     const handleSearch = () => {
 
@@ -94,9 +88,12 @@ const Home = () => {
         setFilteredProduct(categoryNameFiltering)
     }, [isCategoryName, product])
 
+   
+    
+
     return (
         <div className='flex flex-col lg:flex-row'>
-            <div className='w-96 banner bg-no-repeat bg-center bg-cover '>
+            <div className='lg:w-96 w-full  border bg-no-repeat bg-center bg-cover '>
                 <div className='h-[40vh] flex flex-col justify-center items-center my-5'>
                     <div className='space-x-3 flex items-center lg:mt-32 mx-5'>
                         <input
@@ -107,7 +104,7 @@ const Home = () => {
                         <input onClick={handleSearch} className='btn' type="submit" value="Search" />
                     </div>
                     <div className='flex flex-col lg:mt-10 mt-5 w-full space-y-5 px-10 lg:px-5'>
-                        <select onChange={handleBrandName} className='w-full h-12 rounded-md'>
+                        <select onChange={handleBrandName} className='w-full h-12 border rounded-md'>
                             <option className='disabled' value="">Brand Name</option>
                             <option value="Italian Delights">Italian Delights</option>
                             <option value="Breakfast">Breakfast</option>
@@ -123,7 +120,7 @@ const Home = () => {
                             <option value="Burger Haven">Burger Haven</option>
                             <option value="Grill Masters">Grill Masters</option>
                         </select>
-                        <select onChange={handleCategoryName} className='w-full h-12 rounded-md'>
+                        <select onChange={handleCategoryName} className='w-full h-12 border rounded-md'>
                             <option value="">Category Name</option>
                             <option value="Salad">Salad</option>
                             <option value="Dessert">Dessert</option>
@@ -147,6 +144,7 @@ const Home = () => {
                             </ul>
                         </details>
                     </div>
+                    
                 </div>
             </div>
             <div>
