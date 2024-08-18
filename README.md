@@ -1,4 +1,11 @@
 
+# FoodPair (Frontend Project)
+
+##### This project is built with React React. It provides the user interface and communicates with backend services.
+
+
+
+
 ## Run Locally
 
 Clone the project
