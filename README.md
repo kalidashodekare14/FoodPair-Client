@@ -3,7 +3,11 @@
 
 ##### This project is built with React React. It provides the user interface and communicates with backend services.
 
+## Objectives
 
+- Create a responsive and user-friendly interface.
+- Implement state management using Redux.
+- Ensure efficient communication with the backend API.
 
 
 ## Run Locally
