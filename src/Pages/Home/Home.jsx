@@ -5,8 +5,10 @@ import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
 import './Home.css'
 import { useLoaderData } from 'react-router-dom';
+import 'react-range-slider-input/dist/style.css';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
+import { Slider } from '@material-tailwind/react';
 
 const Home = () => {
 
@@ -19,7 +21,8 @@ const Home = () => {
     const numberOfPages = Math.ceil(count / itemsPerPage)
     const [isBrandName, setIsBrandName] = useState("")
     const [isCategoryName, setIsCategoryName] = useState("")
-
+    const [minPrice, setMinPrice] = useState(0)
+    const [maxPrice, setMaxPrice] = useState(500)
 
     const pages = [...Array(numberOfPages).keys()];
 
@@ -76,6 +79,14 @@ const Home = () => {
         setIsCategoryName(e.target.value)
     }
 
+    const handleMinPrice = (v) => {
+        setMinPrice(parseFloat(v).toFixed(2))
+    }
+
+    const handleMaxPrice = (v) => {
+        setMaxPrice(parseFloat(v).toFixed(2))
+    }
+
     useEffect(() => {
         const brandNameFiltering = product.filter(p => p.BrandName.toLowerCase().includes(isBrandName.toLowerCase()))
         setFilteredProduct(brandNameFiltering)
@@ -88,8 +99,19 @@ const Home = () => {
         setFilteredProduct(categoryNameFiltering)
     }, [isCategoryName, product])
 
-   
-    
+
+    useEffect(() => {
+        const priceFiltering = product.filter(p => {
+            const price = parseFloat(p.Price.replace('$', ''))
+            return price >= minPrice && price <= maxPrice
+        })
+        setFilteredProduct(priceFiltering)
+    }, [minPrice, maxPrice, product])
+
+
+
+
+
 
     return (
         <div className='flex flex-col lg:flex-row'>
@@ -144,7 +166,17 @@ const Home = () => {
                             </ul>
                         </details>
                     </div>
-                    
+                    <div className='mt-5 w-full space-y-5 px-5'>
+                        <div>
+                            <label htmlFor="">Min Price: ${minPrice}</label>
+                            <Slider onChange={(e) => handleMinPrice(e.target.value)} defaultValue={minPrice} />
+
+                        </div>
+                        <div>
+                            <label htmlFor="">Max Price: ${maxPrice}</label>
+                            <Slider onChange={(e) => handleMaxPrice(e.target.value)} defaultValue={maxPrice} min={minPrice} />
+                        </div>
+                    </div>
                 </div>
             </div>
             <div>

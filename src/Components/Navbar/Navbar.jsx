@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '/logo.png'
 
+
 const Navbar = () => {
     return (
         <div className="navbar bg-base-100">
